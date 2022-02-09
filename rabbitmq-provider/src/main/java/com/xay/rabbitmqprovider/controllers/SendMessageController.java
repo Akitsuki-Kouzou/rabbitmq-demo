@@ -52,7 +52,7 @@ public class SendMessageController {
     @GetMapping("/sendTopicMessage2")
     public String sendTopicMessage2() {
         String messageId = String.valueOf(UUID.randomUUID());
-        String messageData = "message: woman is all ";
+        String messageData = "message: W O M A N";
         String createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         Map<String, Object> womanMap = new HashMap<>();
         womanMap.put("messageId", messageId);

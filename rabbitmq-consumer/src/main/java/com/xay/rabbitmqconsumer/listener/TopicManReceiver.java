@@ -7,14 +7,14 @@ import org.springframework.stereotype.Component;
 /**
  * @author ziling.wang@hand-china.com
  * @description
- * @date 2020/10/18 21:42
+ * @date 2020/10/18 21:40
  **/
 @Component
-@RabbitListener(queues = "topic.woman")
-public class TopicTotalListener {
+@RabbitListener(queues = "topic.man")
+public class TopicManReceiver {
 
     @RabbitHandler
     public void process(String message) {
-        System.out.println("topic.woman接收到消息：" + message);
+        System.out.println("topic.man 接收到消息：" + message);
     }
 }

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * @date 2020/10/18 21:50
  **/
 @Component
-public class FanoutReceive {
+public class FanoutReceiver {
 
     @RabbitHandler
     @RabbitListener(queues = "fanout.A")

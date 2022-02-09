@@ -17,6 +17,7 @@ public class TopicRabbitConfig {
 
     public static final String man = "topic.man";
     public static final String woman = "topic.woman";
+    public static final String all = "topic.all";
 
     @Bean
     public Queue firstQueue() {
@@ -28,22 +29,35 @@ public class TopicRabbitConfig {
         return new Queue(woman);
     }
 
+    public Queue thirdQueue() {return new Queue(all);}
+
     @Bean
     public TopicExchange exchange() {
         return new TopicExchange("topicExchange");
     }
 
-    //将firstQueue和topicExchange绑定,而且绑定的键值为topic.man
-    //这样只要是消息携带的路由键是topic.man,才会分发到该队列
+    /**
+     * 将firstQueue和topicExchange绑定,而且绑定的键值为topic.man
+     * 这样只要是消息携带的路由键是topic.man,才会分发到该队列
+     */
     @Bean
     public Binding bindingExchangeMessage() {
         return BindingBuilder.bind(firstQueue()).to(exchange()).with(man);
     }
 
-    //将secondQueue和topicExchange绑定,而且绑定的键值为用上通配路由键规则topic.#
-    // 这样只要是消息携带的路由键是以topic.开头,都会分发到该队列
+    /**
+     * 将secondQueue和topicExchange绑定,而且绑定的键值为topic.woman
+     * 这样只要是消息携带的路由键是topic.woman,才会分发到该队列
+     */
     @Bean
-    public Binding bindingExchangeMessage2() {
-        return BindingBuilder.bind(secondQueue()).to(exchange()).with("topic.#");
+    public Binding bindingExchangeMessage2() {return BindingBuilder.bind(secondQueue()).to(exchange()).with(woman);}
+
+    /**
+     * 将thirdQueue和topicExchange绑定,而且绑定的键值为用上通配路由键规则topic.#
+     * 这样只要是消息携带的路由键是以topic.开头,都会分发到该队列
+     */
+    @Bean
+    public Binding bindingExchangeMessage3() {
+        return BindingBuilder.bind(thirdQueue()).to(exchange()).with("topic.#");
     }
 }
